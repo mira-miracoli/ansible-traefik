@@ -16,6 +16,22 @@
     group: "{{ traefik_group }}"
     mode: '0700'
 
+- name: Create traefik Logs
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ traefik_log_dir }}"
+    owner: root
+    group: root
+    state: directory
+
+- name: Create traefik log files (Traefik expects root as owner)
+  ansible.builtin.file:
+    mode: "0644"
+    path: "{{ traefik_log_dir }}/traefik.log"
+    owner: root
+    group: root
+    state: touch
+
 - name: Ensures acme.json file exists
   ansible.builtin.file:
     path: "{{ traefik_dir }}/acme.json"
