@@ -56,6 +56,9 @@
     name: "{{ item.key }}"
     internal: "{{ item.value.internal }}"
     driver: "{{ item.value.driver }}"
+    ipam: "{{ item.value.ipam | default(omit) }}"
+    attachable: "{{ item.value.attachable | default(omit) }}"
+    
   loop: "{{ traefik_networks | dict2items }}"
 
 - name: Create Docker Swarm services
